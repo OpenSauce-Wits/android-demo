@@ -5,7 +5,9 @@ apply plugin: 'com.github.kt3k.coveralls'
 jacoco {
 	toolVersion = "$jacocoVersion"
 }
-
+coveralls {
+	jacocoReportPath 'app/build/reports/jacoco/test/jacocoTestReport.xml'
+}
 tasks.withType( Test) {
 	jacoco.includeNoLocationClasses = true
 }
@@ -24,7 +26,6 @@ task jacocoTestReport( type: JacocoReport, dependsOn: [ 'testDebugUnitTest', 'cr
 	def classDirectories = files([ debugTree])
 	def executionData = fileTree( dir: project.buildDir, includes: [ 'jacoco/testDebugUnitTest.exec', 'outputs/code_coverage/debugAndroidTest/connected/**/*.ec'])
 }
-
 android {
 	compileSdkVersion 28
 	defaultConfig {
